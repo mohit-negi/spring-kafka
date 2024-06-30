@@ -1,6 +1,7 @@
 package com.ewe.solarKafka.controller;
 
-import com.ewe.solarKafka.service.KafkaManager;
+import com.ewe.solarKafka.kafka.KafkaManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-
+@Slf4j
 @RestController
 @RequestMapping("/api/kafka")
 public class KafkaController {
@@ -28,7 +29,7 @@ public class KafkaController {
         Map<String, String> response = new HashMap<>();
         response.put("listenerId", listenerId);
         response.put("message", "Listener created successfully");
-        
+        log.info("Listener created successfully");
         return ResponseEntity.ok(response);
     }
 
@@ -39,7 +40,7 @@ public class KafkaController {
         
         Map<String, String> response = new HashMap<>();
         response.put("message", "Listener removed successfully");
-        
+        log.info("Listener removed successfully");
         return ResponseEntity.ok(response);
     }
 
@@ -58,7 +59,7 @@ public class KafkaController {
         Map<String, String> response = new HashMap<>();
         response.put("listenerId", newListenerId);
         response.put("message", "Topics added to listener successfully");
-        
+        log.info("Topics added to listener successfully");
         return ResponseEntity.ok(response);
     }
 
@@ -76,6 +77,8 @@ public class KafkaController {
             listenerTopicMap.remove(listenerId);
             Map<String, String> response = new HashMap<>();
             response.put("message", "All topics removed. Listener deleted.");
+            log.info("All topics removed. Listener deleted.");
+
             return ResponseEntity.ok(response);
         }
         
@@ -85,7 +88,8 @@ public class KafkaController {
         Map<String, String> response = new HashMap<>();
         response.put("listenerId", newListenerId);
         response.put("message", "Topics removed from listener successfully");
-        
+        log.info("Topics removed from listener successfully");
+
         return ResponseEntity.ok(response);
     }
 
@@ -100,7 +104,8 @@ public class KafkaController {
         
         Map<String, String> response = new HashMap<>();
         response.put("message", "All listeners started");
-        
+        log.info( "All listeners started");
+
         return ResponseEntity.ok(response);
     }
 
@@ -110,7 +115,8 @@ public class KafkaController {
         
         Map<String, String> response = new HashMap<>();
         response.put("message", "All listeners stopped");
-        
+        log.info( "All listeners stopped");
+
         return ResponseEntity.ok(response);
     }
 
@@ -119,7 +125,7 @@ public class KafkaController {
         Map<String, String> status = new HashMap<>();
         status.put("status", "UP");
         status.put("activeListeners", String.valueOf(listenerTopicMap.size()));
-        
+        log.info("activeListeners" + listenerTopicMap.size());
         return ResponseEntity.ok(status);
     }
 }

@@ -1,5 +1,6 @@
-package com.ewe.solarKafka.service;
+package com.ewe.solarKafka.kafka;
 
+import com.ewe.solarKafka.service.OrderConsumeService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
